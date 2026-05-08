@@ -45,7 +45,7 @@ export default function Home() {
             <button
               onClick={() =>
                 window.open(
-                  "https://wa.me/917619388228?text=Hi, I want to book an appointment"
+                  "https://wa.me/917406098184?text=Hi, I want to book an appointment"
                 )
               }
               className="bg-gradient-to-r from-green-600 to-green-800 text-white px-5 py-2 rounded-full hover:scale-105 transition shadow-md"
@@ -76,7 +76,7 @@ export default function Home() {
             <button
               onClick={() =>
                 window.open(
-                  "https://wa.me/917619388228?text=Hi, I want to book an appointment"
+                  "https://wa.me/917406098184?text=Hi, I want to book an appointment"
                 )
               }
               className="mt-6 bg-gradient-to-r from-green-600 to-green-800 text-white px-8 py-3 rounded-full text-lg hover:scale-105 transition shadow-xl"
