@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import Services from "../components/Services";
+import Reviews from "../components/Reviews";
+import Contact from "../components/Contact";
 
 export default function Home() {
   return (
@@ -36,11 +39,22 @@ export default function Home() {
 
           {/* MENU */}
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8 text-sm lg:text-base text-gray-700 font-medium shrink-0">
-            <a href="#" className="hover:text-green-700 transition">Home</a>
-            <a href="#about" className="hover:text-green-700 transition">About</a>
-            <a href="#services" className="hover:text-green-700 transition">Services</a>
-            <a href="#gallery" className="hover:text-green-700 transition">Gallery</a>
-            <a href="#contact" className="hover:text-green-700 transition">Contact</a>
+            <a href="#home" className="relative group text-gray-800 transition-colors hover:text-green-800">
+              Home
+              <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#services" className="relative group text-gray-800 transition-colors hover:text-green-800">
+              Services
+              <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#reviews" className="relative group text-gray-800 transition-colors hover:text-green-800">
+              Reviews
+              <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#contact" className="relative group text-gray-800 transition-colors hover:text-green-800">
+              Contact
+              <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+            </a>
 
             <button
               onClick={() =>
@@ -72,7 +86,7 @@ export default function Home() {
       </nav>
 
       {/* 🌟 HERO SECTION */}
-      <div className="pt-28 md:pt-32 flex justify-center px-4 md:px-6">
+      <div className="pt-28 md:pt-32 flex justify-center px-4 md:px-6 scroll-mt-28" id="home">
 
         <div className="bg-white/20 backdrop-blur-md rounded-2xl px-6 md:px-8 py-8 md:py-10 max-w-6xl w-full flex flex-col md:flex-row items-center gap-8 md:gap-10 shadow-lg">
 
@@ -112,94 +126,10 @@ export default function Home() {
 
       </div>
 
-      {/* 💄 SERVICES */}
-      <div className="mt-20 md:mt-24 px-6 md:px-20 lg:px-32" id="services">
-        <h3 className="text-3xl md:text-5xl font-bold text-center text-gray-800">
-          Our Services 💄
-        </h3>
+      <Services />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 mt-10 md:mt-12">
-
-          {[
-            { name: "Hydra Facial", img: "/services/facial.png" },
-            { name: "Bridal Makeup", img: "/services/bridal.jpg" },
-            { name: "Mehandi", img: "/services/mehandi.jpg" },
-            { name: "Manicure", img: "/services/manicure.jpg" },
-            { name: "Pedicure", img: "/services/pedicure.png" },
-            { name: "Eyebrow", img: "/services/eyebrow.jpg" },
-            { name: "Haircut", img: "/services/haircut.jpeg" },
-          ].map((service, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -5 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="group bg-white/50 backdrop-blur-lg rounded-2xl shadow-xl border border-white/30 overflow-hidden transition-shadow duration-300 hover:shadow-2xl hover:shadow-green-900/20 cursor-pointer"
-            >
-              <div className="aspect-square overflow-hidden">
-
-                {/* IMAGE */}
-                <div className="aspect-square max-h-[3100px] overflow-hidden">
-                  <img
-                    src={service.img}
-                    alt={service.name}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                  />
-                </div>
-              </div>
-              {/* CONTENT */}
-              <div className="p-5">
-                <h4 className="text-xl font-semibold text-green-800">
-                  {service.name}
-                </h4>
-                <p className="mt-2 text-gray-600">
-                  Professional {service.name.toLowerCase()} service.
-                </p>
-              </div>
-
-            </motion.div>
-          ))}
-
-        </div>
-      </div>
-
-      {/* ⭐ REVIEWS */}
-      <div className="mt-20 md:mt-32 px-6 text-center pb-20">
-        <h3 className="text-3xl md:text-4xl font-bold text-gray-800">
-          Customer Reviews ⭐
-        </h3>
-
-        <div className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white/50 backdrop-blur-lg p-6 rounded-xl shadow-xl border border-white/30 transition-shadow duration-300 hover:shadow-2xl hover:shadow-green-900/20 cursor-pointer"
-          >
-            <p>"Amazing service! Loved the facial."</p>
-            <h4 className="mt-2 font-semibold">- Priya</h4>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white/50 backdrop-blur-lg p-6 rounded-xl shadow-xl border border-white/30 transition-shadow duration-300 hover:shadow-2xl hover:shadow-green-900/20 cursor-pointer"
-          >
-            <p>"Best bridal makeup in town ❤️"</p>
-            <h4 className="mt-2 font-semibold">- Sneha</h4>
-          </motion.div>
-        </div>
-      </div>
+      <Reviews />
+      <Contact />
 
     </div>
   );
