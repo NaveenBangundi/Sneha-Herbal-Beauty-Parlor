@@ -11,4 +11,4 @@ import { Booking, BookingSchema } from './schemas/booking.schema';
   controllers: [BookingsController],
   providers: [BookingsService]
 })
-export class BookingsModule {}
+export class BookingsModule { }
