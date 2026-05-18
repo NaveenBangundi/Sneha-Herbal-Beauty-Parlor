@@ -53,10 +53,10 @@ export default function Reviews() {
 
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    
+
     // Calculate average rating
     const avgRating = Math.round((formData.service + formData.hygiene + formData.ambiance) / 3);
-    
+
     // If it's a negative review (3 stars or less), simulate alerting the admin
     if (avgRating <= 3) {
       console.warn("ADMIN ALERT: Negative review received from " + formData.name);
@@ -91,12 +91,12 @@ export default function Reviews() {
         What Our Clients Say ✨
       </h3>
       <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
-      
+
       <div className="relative mt-12 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
-        
+
         {/* Premium Left Arrow */}
-        <button 
-          onClick={handlePrev} 
+        <button
+          onClick={handlePrev}
           className="hidden md:flex absolute -left-6 md:-left-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +105,7 @@ export default function Reviews() {
         </button>
 
         <div className="relative w-full max-w-2xl h-[400px] md:h-[350px] bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white p-8 flex flex-col items-center justify-center">
-          
+
           {/* Quote Icon */}
           <div className="absolute top-6 left-8 text-6xl text-green-200 opacity-50 font-serif leading-none">
             "
@@ -132,11 +132,11 @@ export default function Reviews() {
               <div className="flex justify-center gap-1 mb-6 text-yellow-400 text-xl">
                 {[...Array(reviewsList[index]?.rating || 5)].map((_, i) => <span key={i} className="drop-shadow-sm">★</span>)}
               </div>
-              
+
               <p className="text-gray-700 text-lg md:text-2xl font-medium italic font-[Playfair Display] leading-relaxed">
                 "{reviewsList[index]?.text}"
               </p>
-              
+
               <div className="mt-8 flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-2xl shadow-inner border border-white">
                   {reviewsList[index]?.avatar}
@@ -152,16 +152,16 @@ export default function Reviews() {
               </div>
             </motion.div>
           </AnimatePresence>
-          
+
           <div className="absolute bottom-6 flex gap-3">
             {reviewsList.map((_, i) => (
-              <button 
-                key={i} 
+              <button
+                key={i}
                 onClick={() => {
                   setDirection(i > index ? 1 : -1);
                   setIndex(i);
                 }}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`} 
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
@@ -169,8 +169,8 @@ export default function Reviews() {
         </div>
 
         {/* Premium Right Arrow */}
-        <button 
-          onClick={handleNext} 
+        <button
+          onClick={handleNext}
           className="hidden md:flex absolute -right-6 md:-right-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,7 @@ export default function Reviews() {
       </div>
 
       <div className="mt-10 md:mt-16 flex justify-center">
-        <button 
+        <button
           onClick={() => setIsModalOpen(true)}
           className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
         >
@@ -194,16 +194,16 @@ export default function Reviews() {
         {isModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeModal}
               className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             />
-            
+
             {/* Modal Content */}
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -215,9 +215,9 @@ export default function Reviews() {
                 </h4>
                 <button onClick={closeModal} className="text-white/80 hover:text-white text-3xl leading-none">&times;</button>
               </div>
-              
+
               {isSubmitted ? (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="p-8 md:p-12 text-center space-y-4"
@@ -229,7 +229,7 @@ export default function Reviews() {
                   <p className="text-gray-600 font-[Poppins] leading-relaxed mt-2">
                     We appreciate your time and thanks for writing to us. Visit again!
                   </p>
-                  <button 
+                  <button
                     onClick={closeModal}
                     className="mt-8 w-full bg-green-100 text-green-800 py-3.5 rounded-xl font-bold hover:bg-green-200 hover:scale-[1.02] transition-all shadow-sm"
                   >
@@ -240,34 +240,34 @@ export default function Reviews() {
                 <form onSubmit={handleSubmitReview} className="p-6 md:p-8 space-y-6">
                   <div>
                     <label className="block text-gray-700 font-medium mb-2 font-[Poppins]">Your Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       placeholder="Enter your name"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 bg-gray-50"
                     />
                   </div>
 
                   <div className="bg-green-50/50 p-4 rounded-2xl border border-green-100">
-                    <StarRating label="Service Quality" rating={formData.service} setRating={(v) => setFormData({...formData, service: v})} />
-                    <StarRating label="Cleanliness & Hygiene" rating={formData.hygiene} setRating={(v) => setFormData({...formData, hygiene: v})} />
-                    <StarRating label="Ambiance & Comfort" rating={formData.ambiance} setRating={(v) => setFormData({...formData, ambiance: v})} />
+                    <StarRating label="Service Quality" rating={formData.service} setRating={(v) => setFormData({ ...formData, service: v })} />
+                    <StarRating label="Cleanliness & Hygiene" rating={formData.hygiene} setRating={(v) => setFormData({ ...formData, hygiene: v })} />
+                    <StarRating label="Ambiance & Comfort" rating={formData.ambiance} setRating={(v) => setFormData({ ...formData, ambiance: v })} />
                   </div>
 
                   <div>
                     <label className="block text-gray-700 font-medium mb-2 font-[Poppins]">Additional Comments</label>
-                    <textarea 
+                    <textarea
                       rows="3"
                       placeholder="Tell us what you loved..."
                       value={formData.comment}
-                      onChange={(e) => setFormData({...formData, comment: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 bg-gray-50 resize-none"
                     ></textarea>
                   </div>
 
-                  <button 
+                  <button
                     type="submit"
                     className="w-full bg-gradient-to-r from-green-500 to-green-700 text-white py-4 rounded-xl font-bold hover:shadow-lg hover:shadow-green-500/30 hover:scale-[1.02] transition-all"
                   >
