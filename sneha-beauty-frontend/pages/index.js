@@ -62,7 +62,7 @@ export default function Home() {
                   "https://wa.me/917406098184?text=Hi, I want to book an appointment"
                 )
               }
-              className="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 lg:px-5 py-2 rounded-full hover:scale-105 transition shadow-md whitespace-nowrap"
+              className="bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white px-4 lg:px-5 py-2 rounded-full hover:scale-105 hover:shadow-lg transition-all duration-300 shadow-md whitespace-nowrap"
             >
               Book Now
             </button>
@@ -76,7 +76,7 @@ export default function Home() {
                   "https://wa.me/917406098184?text=Hi, I want to book an appointment"
                 )
               }
-              className="bg-gradient-to-r from-green-600 to-green-800 text-white px-4 py-2 text-sm rounded-full shadow-md"
+              className="bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white px-4 py-2 text-sm rounded-full shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               Book
             </button>
@@ -107,7 +107,7 @@ export default function Home() {
                   "https://wa.me/917406098184?text=Hi, I want to book an appointment"
                 )
               }
-              className="mt-6 bg-gradient-to-r from-green-600 to-green-800 text-white px-6 md:px-8 py-3 rounded-full text-base md:text-lg hover:scale-105 transition shadow-xl"
+              className="mt-6 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white px-6 md:px-8 py-3 rounded-full text-base md:text-lg hover:scale-105 hover:shadow-2xl transition-all duration-300 shadow-xl"
             >
               Book Appointment 💬
             </button>
