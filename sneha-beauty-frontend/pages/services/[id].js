@@ -1,0 +1,292 @@
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+
+const fallbackServices = [
+  { _id: "1", name: "Hydra Facial", imageUrl: "/services/facial.png", description: "Deep cleansing and hydration for glowing skin.", price: 1500, durationInMinutes: 60 },
+  { _id: "2", name: "Bridal Makeup", imageUrl: "/services/bridal.jpg", description: "Expert makeup to make you feel like a princess.", price: 5000, durationInMinutes: 120 },
+  { _id: "3", name: "Mehandi", imageUrl: "/services/mehandi.jpg", description: "Beautiful and intricate mehandi designs.", price: 1000, durationInMinutes: 90 },
+  { _id: "4", name: "Manicure", imageUrl: "/services/manicure.jpg", description: "Relaxing manicure sessions for elegant hands.", price: 800, durationInMinutes: 45 },
+  { _id: "5", name: "Pedicure", imageUrl: "/services/pedicure.png", description: "Rejuvenating pedicure to soothe your feet.", price: 1000, durationInMinutes: 45 },
+  { _id: "6", name: "Eyebrow", imageUrl: "/services/eyebrow.jpg", description: "Precision threading and shaping.", price: 150, durationInMinutes: 15 },
+  { _id: "7", name: "Haircut", imageUrl: "/services/haircut.jpeg", description: "Trendy haircuts to match your style.", price: 500, durationInMinutes: 30 }
+];
+
+export default function ServiceDetail() {
+  const router = useRouter();
+  const { id } = router.query;
+  const [service, setService] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  // Booking Modal States
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    customerName: '',
+    customerPhone: '',
+    appointmentDate: '',
+    appointmentTime: ''
+  });
+  const [bookingLoading, setBookingLoading] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchService = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/services/${id}`);
+        if (res.ok) {
+          const data = await res.json();
+          setService(data);
+        } else {
+          const fallback = fallbackServices.find(s => s._id === id);
+          if (fallback) {
+            setService(fallback);
+          } else {
+            console.error("Failed to fetch service and no fallback found");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching service:", error);
+        const fallback = fallbackServices.find(s => s._id === id);
+        if (fallback) {
+          setService(fallback);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchService();
+  }, [id]);
+
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
+    setBookingLoading(true);
+    try {
+      const res = await fetch("http://localhost:3001/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...formData,
+          serviceId: id
+        })
+      });
+
+      if (res.ok) {
+        setBookingSuccess(true);
+      } else {
+        console.error("Booking failed");
+        alert("Booking failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("Error creating booking. Please try again.");
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
+      </div>
+    );
+  }
+
+  if (!service) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-white">
+        <h1 className="text-2xl font-bold text-gray-800">Service not found</h1>
+        <Link href="/" className="mt-4 text-green-600 hover:text-green-700 font-medium">
+          ← Back to Home
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white font-[Poppins]">
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <Link href="/" className="inline-flex items-center text-green-600 hover:text-green-700 font-medium mb-8 transition-colors">
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7 7-7" />
+          </svg>
+          Back to Services
+        </Link>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/60"
+        >
+          <div className="relative h-[400px] w-full bg-gray-100">
+            <img 
+              src={service.imageUrl || "/services/facial.png"} 
+              alt={service.name} 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6">
+              <h1 className="text-4xl font-bold text-white font-[Playfair Display] mb-2">
+                {service.name}
+              </h1>
+              <span className="bg-green-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg">
+                Premium Service
+              </span>
+            </div>
+          </div>
+
+          <div className="p-8 md:p-10">
+            <div className="flex flex-wrap gap-6 mb-8 text-sm text-gray-600">
+              <div className="flex items-center">
+                <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {service.durationInMinutes} Minutes
+              </div>
+              <div className="flex items-center">
+                <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v1m0 5v1m0-1c-1.11 0-2.08-.402-2.599-1M12 13v1m0-1v-1m0 5h1m-1 0h-1" />
+                </svg>
+                ₹{service.price}
+              </div>
+            </div>
+
+            <div className="prose prose-green max-w-none">
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 font-[Playfair Display]">About this Service</h2>
+              <p className="text-gray-600 leading-relaxed mb-6">
+                {service.description}
+              </p>
+              
+              <h2 className="text-2xl font-bold text-gray-800 mb-4 font-[Playfair Display]">What's Included</h2>
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  Consultation with our expert therapists
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  Premium herbal products tailored to your skin type
+                </li>
+                <li className="flex items-center">
+                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  Relaxing and hygienic environment
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-10 flex gap-4">
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="flex-1 bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
+              >
+                Book Now
+              </button>
+              <button className="px-6 bg-white border border-green-600 text-green-600 py-4 rounded-xl font-bold hover:bg-green-50 transition-colors">
+                Share
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Booking Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 font-[Playfair Display]">Book Appointment</h3>
+                <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-gray-700">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l18 18" /></svg>
+                </button>
+              </div>
+
+              {bookingSuccess ? (
+                <div className="text-center py-6">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl mx-auto mb-4">✓</div>
+                  <h4 className="text-xl font-bold text-gray-800 mb-2">Booking Successful!</h4>
+                  <p className="text-gray-600 text-sm">We will contact you shortly to confirm.</p>
+                  <button 
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      setBookingSuccess(false);
+                    }}
+                    className="mt-6 w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleBookingSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                      value={formData.customerName}
+                      onChange={(e) => setFormData({...formData, customerName: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <input 
+                      type="tel" 
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                      value={formData.customerPhone}
+                      onChange={(e) => setFormData({...formData, customerPhone: e.target.value})}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                      <input 
+                        type="date" 
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                        value={formData.appointmentDate}
+                        onChange={(e) => setFormData({...formData, appointmentDate: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                      <input 
+                        type="time" 
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                        value={formData.appointmentTime}
+                        onChange={(e) => setFormData({...formData, appointmentTime: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <button 
+                    type="submit"
+                    disabled={bookingLoading}
+                    className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-colors mt-6 flex items-center justify-center gap-2"
+                  >
+                    {bookingLoading ? (
+                      <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+                    ) : 'Confirm Booking'}
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
