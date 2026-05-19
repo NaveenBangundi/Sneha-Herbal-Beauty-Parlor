@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 
@@ -20,5 +20,14 @@ export class ServicesController {
   @ApiResponse({ status: 200, description: 'Return all services.' })
   findAll() {
     return this.servicesService.findAll();
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get a specific beauty service by id' })
+  @ApiParam({ name: 'id', description: 'The ID of the service to fetch' })
+  @ApiResponse({ status: 200, description: 'Return the requested service.' })
+  @ApiResponse({ status: 404, description: 'Service not found.' })
+  findOne(@Param('id') id: string) {
+    return this.servicesService.findOne(id);
   }
 }
