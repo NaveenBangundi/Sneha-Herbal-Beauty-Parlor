@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Services from "../components/Services";
+import Shop from "../components/Shop";
 import Reviews from "../components/Reviews";
 import Contact from "../components/Contact";
 
@@ -45,6 +46,10 @@ export default function Home() {
             </a>
             <a href="#services" className="relative group text-gray-800 transition-colors hover:text-green-800">
               Services
+              <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <a href="#shop" className="relative group text-gray-800 transition-colors hover:text-green-800">
+              Shop
               <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-green-600 transition-all duration-300 group-hover:w-full"></span>
             </a>
             <a href="#reviews" className="relative group text-gray-800 transition-colors hover:text-green-800">
@@ -127,7 +132,7 @@ export default function Home() {
       </div>
 
       <Services />
-
+      <Shop />
       <Reviews />
       <Contact />
 
