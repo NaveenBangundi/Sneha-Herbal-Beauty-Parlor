@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 const fallbackServices = [
-  { _id: "1", name: "Face Rituals", imageUrl: "/services/facial.png", description: "Deep cleansing and hydration for glowing skin." },
-  { _id: "2", name: "Head Rituals", imageUrl: "/services/haircut.jpeg", description: "Rejuvenating head treatments." },
-  { _id: "3", name: "Pigmentation Treatment", imageUrl: "/services/bridal.jpg", description: "Advanced skin care solutions." },
-  { _id: "4", name: "Skin Renewal", imageUrl: "/services/mehandi.jpg", description: "Complete skin renewal therapy." },
-  { _id: "5", name: "Glass Shine Hair", imageUrl: "/services/manicure.jpg", description: "Premium hair care for shine." }
+  { _id: "6a0c69f2e1c0da69d33a0b14", name: "Face Rituals", imageUrl: "/services/facial.png", description: "Deep cleansing and hydration for glowing skin." },
+  { _id: "6a0c69f3e1c0da69d33a0b20", name: "Head Rituals", imageUrl: "/services/haircut.jpeg", description: "Rejuvenating head treatments." },
+  { _id: "6a0c69f3e1c0da69d33a0b15", name: "Pigmentation Treatment", imageUrl: "/services/bridal.jpg", description: "Advanced skin care solutions." },
+  { _id: "6a0c69f3e1c0da69d33a0b16", name: "Skin Renewal", imageUrl: "/services/mehandi.jpg", description: "Complete skin renewal therapy." },
+  { _id: "6a0c69f3e1c0da69d33a0b17", name: "Glass Shine Hair", imageUrl: "/services/manicure.jpg", description: "Premium hair care for shine." }
 ];
 
 export default function Services() {
@@ -45,80 +45,79 @@ export default function Services() {
   return (
     <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="services">
       <div className="max-w-6xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative overflow-hidden">
-        
+
         {/* Inner Golden Glow Spotlights */}
         <div className="absolute w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
         <div className="absolute w-[250px] h-[250px] bg-yellow-300/15 rounded-full blur-[70px] -bottom-20 -left-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
 
         <div className="relative z-10 w-full">
           <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
-          <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display] text-center md:text-left">
-            Innovation Services ✨
-          </h3>
-          <button
-            onClick={() => router.push("/services")}
-            className="whitespace-nowrap px-6 py-2.5 rounded-full border-2 border-green-600 text-green-700 font-semibold text-xs md:text-sm uppercase tracking-wider bg-white hover:bg-green-50 hover:scale-105 active:scale-98 transition-all duration-300 shadow-md"
-          >
-            More Services ➔
-          </button>
-        </div>
-
-        <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-[500px] md:h-[450px] w-full">
-        {displayedServices.map((service, index) => {
-          const isActive = currentIndex === index;
-
-          return (
-            <div
-              key={service._id || index}
-              className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] ${
-                isActive ? "flex-[4] md:flex-[5]" : "flex-[1]"
-              }`}
-              onMouseEnter={() => !isMobile && setCurrentIndex(index)}
-              onClick={() => {
-                if (isMobile) setCurrentIndex(index);
-                // On mobile, maybe tapping again navigates?
-                // For now, let the Explore Now button handle navigation.
-              }}
+            <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display] text-center md:text-left">
+              Innovation Services ✨
+            </h3>
+            <button
+              onClick={() => router.push("/services")}
+              className="whitespace-nowrap px-6 py-2.5 rounded-full border-2 border-green-600 text-green-700 font-semibold text-xs md:text-sm uppercase tracking-wider bg-white hover:bg-green-50 hover:scale-105 active:scale-98 transition-all duration-300 shadow-md"
             >
-              {/* Background Image */}
-              <img
-                src={service.imageUrl || service.img || "/placeholder.jpg"}
-                alt={service.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
-              />
-              
-              {/* Gradient Overlay for text readability */}
-              <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-60 md:opacity-40' : 'opacity-80'}`}></div>
+              More Services ➔
+            </button>
+          </div>
 
-              {/* Content Container */}
-              <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
-                {isActive ? (
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn transition-opacity duration-500 delay-300">
-                    <h4 className="text-white text-xl md:text-2xl font-semibold uppercase tracking-wider drop-shadow-md">
-                      {service.name}
-                    </h4>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        router.push(`/services/${service._id}`);
-                      }}
-                      className="whitespace-nowrap px-6 py-2.5 rounded-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white font-semibold text-xs md:text-sm uppercase tracking-wider hover:scale-105 active:scale-98 transition-all duration-300 shadow-md"
-                    >
-                      Explore Now ➔
-                    </button>
+          <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-[500px] md:h-[450px] w-full">
+            {displayedServices.map((service, index) => {
+              const isActive = currentIndex === index;
+
+              return (
+                <div
+                  key={service._id || index}
+                  className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] ${isActive ? "flex-[4] md:flex-[5]" : "flex-[1]"
+                    }`}
+                  onMouseEnter={() => !isMobile && setCurrentIndex(index)}
+                  onClick={() => {
+                    if (isMobile) setCurrentIndex(index);
+                    // On mobile, maybe tapping again navigates?
+                    // For now, let the Explore Now button handle navigation.
+                  }}
+                >
+                  {/* Background Image */}
+                  <img
+                    src={service.imageUrl || service.img || "/placeholder.jpg"}
+                    alt={service.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
+                  />
+
+                  {/* Gradient Overlay for text readability */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-60 md:opacity-40' : 'opacity-80'}`}></div>
+
+                  {/* Content Container */}
+                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+                    {isActive ? (
+                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn transition-opacity duration-500 delay-300">
+                        <h4 className="text-white text-xl md:text-2xl font-semibold uppercase tracking-wider drop-shadow-md">
+                          {service.name}
+                        </h4>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(`/services/${service._id}`);
+                          }}
+                          className="whitespace-nowrap px-6 py-2.5 rounded-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white font-semibold text-xs md:text-sm uppercase tracking-wider hover:scale-105 active:scale-98 transition-all duration-300 shadow-md"
+                        >
+                          Explore Now ➔
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="h-full w-full flex items-end justify-center pb-2 opacity-100 transition-opacity duration-300">
+                        <h4 className="text-white text-sm md:text-base font-bold uppercase tracking-[0.15em] whitespace-nowrap [writing-mode:vertical-rl] rotate-180 drop-shadow-md">
+                          {service.name}
+                        </h4>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <div className="h-full w-full flex items-end justify-center pb-2 opacity-100 transition-opacity duration-300">
-                    <h4 className="text-white text-sm md:text-base font-bold uppercase tracking-[0.15em] whitespace-nowrap [writing-mode:vertical-rl] rotate-180 drop-shadow-md">
-                      {service.name}
-                    </h4>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+                </div>
+              );
+            })}
+          </div>
 
         </div>
       </div>

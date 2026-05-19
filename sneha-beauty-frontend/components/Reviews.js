@@ -88,7 +88,7 @@ export default function Reviews() {
   return (
     <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="reviews">
       <div className="max-w-3xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 py-6 md:py-8 px-8 md:px-10 lg:px-12 text-center overflow-hidden transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative">
-        
+
         {/* Inner Golden Glow Spotlights */}
         <div className="absolute w-[250px] h-[250px] bg-amber-400/20 rounded-full blur-[75px] -top-16 -right-16 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
         <div className="absolute w-[200px] h-[200px] bg-yellow-300/15 rounded-full blur-[60px] -bottom-16 -left-16 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
@@ -99,103 +99,103 @@ export default function Reviews() {
           </h3>
           <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
 
-      <div className="relative mt-4 md:mt-6 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
+          <div className="relative mt-4 md:mt-6 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
 
-        {/* Premium Left Arrow */}
-        <button
-          onClick={handlePrev}
-          className="hidden md:flex absolute -left-6 md:-left-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
-        >
-          <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
+            {/* Premium Left Arrow */}
+            <button
+              onClick={handlePrev}
+              className="hidden md:flex absolute -left-6 md:-left-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-        <div className="relative w-full max-w-xl h-[290px] md:h-[220px] flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-xl h-[290px] md:h-[220px] flex flex-col items-center justify-center">
 
-          {/* Quote Icon */}
-          <div className="absolute top-6 left-8 text-6xl text-green-200 opacity-50 font-serif leading-none">
-            "
+              {/* Quote Icon */}
+              <div className="absolute top-6 left-8 text-6xl text-green-200 opacity-50 font-serif leading-none">
+                "
+              </div>
+
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={index}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.2}
+                  onDragEnd={(e, { offset, velocity }) => {
+                    const swipe = offset.x;
+                    if (swipe < -50) handleNext();
+                    else if (swipe > 50) handlePrev();
+                  }}
+                  className="absolute inset-0 flex flex-col items-center justify-center px-8 md:px-12 text-center pb-10 cursor-grab active:cursor-grabbing"
+                >
+                  <div className="flex justify-center gap-1 mb-6 text-yellow-400 text-xl">
+                    {[...Array(reviewsList[index]?.rating || 5)].map((_, i) => <span key={i} className="drop-shadow-sm">★</span>)}
+                  </div>
+
+                  <p className="text-gray-700 text-lg md:text-2xl font-medium italic font-[Playfair Display] leading-relaxed">
+                    "{reviewsList[index]?.text}"
+                  </p>
+
+                  <div className="mt-8 flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-2xl shadow-inner border border-white">
+                      {reviewsList[index]?.avatar}
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-bold text-green-900 text-base md:text-lg">
+                        {reviewsList[index]?.name}
+                      </h4>
+                      <p className="text-green-700/70 text-xs md:text-sm font-[Poppins] uppercase tracking-wider">
+                        {reviewsList[index]?.role}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+            </div>
+
+            {/* Premium Right Arrow */}
+            <button
+              onClick={handleNext}
+              className="hidden md:flex absolute -right-6 md:-right-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+
           </div>
 
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={index}
-              custom={direction}
-              initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.2}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = offset.x;
-                if (swipe < -50) handleNext();
-                else if (swipe > 50) handlePrev();
-              }}
-              className="absolute inset-0 flex flex-col items-center justify-center px-8 md:px-12 text-center pb-10 cursor-grab active:cursor-grabbing"
+          <div className="flex justify-center gap-3 mt-4 mb-2">
+            {reviewsList.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  setDirection(i > index ? 1 : -1);
+                  setIndex(i);
+                }}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <div className="mt-6 md:mt-8 flex justify-center">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
             >
-              <div className="flex justify-center gap-1 mb-6 text-yellow-400 text-xl">
-                {[...Array(reviewsList[index]?.rating || 5)].map((_, i) => <span key={i} className="drop-shadow-sm">★</span>)}
-              </div>
-
-              <p className="text-gray-700 text-lg md:text-2xl font-medium italic font-[Playfair Display] leading-relaxed">
-                "{reviewsList[index]?.text}"
-              </p>
-
-              <div className="mt-8 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-2xl shadow-inner border border-white">
-                  {reviewsList[index]?.avatar}
-                </div>
-                <div className="text-left">
-                  <h4 className="font-bold text-green-900 text-base md:text-lg">
-                    {reviewsList[index]?.name}
-                  </h4>
-                  <p className="text-green-700/70 text-xs md:text-sm font-[Poppins] uppercase tracking-wider">
-                    {reviewsList[index]?.role}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-        </div>
-
-        {/* Premium Right Arrow */}
-        <button
-          onClick={handleNext}
-          className="hidden md:flex absolute -right-6 md:-right-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
-        >
-          <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
-
-      </div>
-
-      <div className="flex justify-center gap-3 mt-4 mb-2">
-        {reviewsList.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => {
-              setDirection(i > index ? 1 : -1);
-              setIndex(i);
-            }}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-        <div className="mt-6 md:mt-8 flex justify-center">
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
-          >
-            Write a Review ✍️
-          </button>
-        </div>
+              Write a Review ✍️
+            </button>
+          </div>
         </div>
       </div>
 

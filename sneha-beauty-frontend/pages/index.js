@@ -8,23 +8,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden">
 
-      {/* 🌿 BACKGROUND IMAGE */}
-      <div
-        className="fixed inset-0 -z-20 bg-cover bg-center opacity-90"
-        style={{
-          backgroundImage: "url('/bg.png')",
-        }}
-      ></div>
-
-      {/* 🎨 OVERLAY (for readability) */}
-      <div className="fixed inset-0 -z-10 bg-gradient-to-br from-white/10 via-white/5 to-pink-100/70"></div>
-
-      {/* ✨ PREMIUM GLOW */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute w-[600px] h-[600px] bg-pink-400/60 rounded-full blur-[150px] top-[-200px] left-[-200px] animate-pulse"></div>
-        <div className="absolute w-[600px] h-[600px] bg-green-400/60 rounded-full blur-[150px] bottom-[-200px] right-[-200px] animate-pulse"></div>
-        <div className="absolute w-[400px] h-[400px] bg-yellow-300/40 rounded-full blur-[120px] top-[30%] left-[40%] animate-pulse"></div>
-      </div>
 
       {/* 🔝 NAVBAR */}
       <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm h-20 flex items-center">
