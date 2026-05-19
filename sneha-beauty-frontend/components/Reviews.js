@@ -86,25 +86,26 @@ export default function Reviews() {
   };
 
   return (
-    <div className="mt-20 md:mt-32 px-4 md:px-6 text-center pb-20 overflow-hidden scroll-mt-28" id="reviews">
-      <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
-        What Our Clients Say ✨
-      </h3>
-      <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
+    <div className="mt-20 md:mt-32 px-4 md:px-8 pb-20 scroll-mt-28" id="reviews">
+      <div className="max-w-5xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 text-center overflow-hidden">
+        <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
+          What Our Clients Say ✨
+        </h3>
+        <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
 
-      <div className="relative mt-12 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
+      <div className="relative mt-8 md:mt-12 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
 
         {/* Premium Left Arrow */}
         <button
           onClick={handlePrev}
-          className="hidden md:flex absolute -left-6 md:-left-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
+          className="hidden md:flex absolute -left-6 md:-left-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
         </button>
 
-        <div className="relative w-full max-w-2xl h-[400px] md:h-[350px] bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-md rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white p-8 flex flex-col items-center justify-center">
+        <div className="relative w-full max-w-2xl h-[350px] md:h-[280px] flex flex-col items-center justify-center">
 
           {/* Quote Icon */}
           <div className="absolute top-6 left-8 text-6xl text-green-200 opacity-50 font-serif leading-none">
@@ -171,7 +172,7 @@ export default function Reviews() {
         {/* Premium Right Arrow */}
         <button
           onClick={handleNext}
-          className="hidden md:flex absolute -right-6 md:-right-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
+          className="hidden md:flex absolute -right-6 md:-right-10 z-50 w-12 h-12 md:w-14 md:h-14 items-center justify-center rounded-full bg-white/40 backdrop-blur-xl shadow-md border border-white/60 text-green-900 hover:bg-white/60 hover:scale-110 transition-all duration-300 group overflow-hidden"
         >
           <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
@@ -180,13 +181,14 @@ export default function Reviews() {
 
       </div>
 
-      <div className="mt-10 md:mt-16 flex justify-center">
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
-        >
-          Write a Review ✍️
-        </button>
+        <div className="mt-10 md:mt-16 flex justify-center">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
+          >
+            Write a Review ✍️
+          </button>
+        </div>
       </div>
 
       {/* Review Form Modal */}

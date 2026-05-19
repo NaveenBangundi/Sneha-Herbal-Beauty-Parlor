@@ -43,12 +43,21 @@ export default function Services() {
   const displayedServices = servicesData.slice(0, 5);
 
   return (
-    <div className="mt-16 md:mt-24 px-4 md:px-8 max-w-[1400px] mx-auto scroll-mt-28 mb-20" id="services">
-      <h3 className="text-2xl md:text-3xl text-center text-gray-900 uppercase tracking-[0.2em] font-light mb-12">
-        Innovation Services
-      </h3>
+    <div className="mt-16 md:mt-24 px-4 md:px-8 mb-20 scroll-mt-28" id="services">
+      <div className="max-w-7xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+          <h3 className="text-2xl md:text-3xl text-gray-900 uppercase tracking-[0.2em] font-light text-center md:text-left">
+            Innovation Services
+          </h3>
+          <button
+            onClick={() => router.push("/services")}
+            className="whitespace-nowrap px-6 py-2.5 rounded shadow-lg text-black font-semibold text-xs md:text-sm uppercase tracking-wider bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:scale-105 hover:shadow-[#E1B875]/50 hover:shadow-xl hover:brightness-110 transition-all duration-300"
+          >
+            More Services
+          </button>
+        </div>
 
-      <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-[500px] md:h-[450px] w-full">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-[500px] md:h-[450px] w-full">
         {displayedServices.map((service, index) => {
           const isActive = currentIndex === index;
 
@@ -87,7 +96,7 @@ export default function Services() {
                         e.stopPropagation();
                         router.push(`/services/${service._id}`);
                       }}
-                      className="whitespace-nowrap px-6 py-2 rounded shadow-lg text-black font-semibold text-xs md:text-sm uppercase tracking-wider bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:brightness-110 transition-all"
+                      className="whitespace-nowrap px-6 py-2 rounded shadow-lg text-black font-semibold text-xs md:text-sm uppercase tracking-wider bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:scale-105 hover:shadow-[#E1B875]/50 hover:shadow-xl hover:brightness-110 transition-all duration-300"
                     >
                       Explore Now
                     </button>
@@ -105,13 +114,6 @@ export default function Services() {
         })}
       </div>
 
-      <div className="flex justify-center mt-12">
-        <button
-          onClick={() => router.push("/services")}
-          className="px-8 py-3 rounded shadow-xl text-black font-semibold text-sm uppercase tracking-widest bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:scale-105 transition-transform"
-        >
-          More Services
-        </button>
       </div>
     </div>
   );
