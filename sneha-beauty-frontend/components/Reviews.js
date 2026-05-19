@@ -86,14 +86,20 @@ export default function Reviews() {
   };
 
   return (
-    <div className="mt-20 md:mt-32 px-4 md:px-8 pb-20 scroll-mt-28" id="reviews">
-      <div className="max-w-5xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 text-center overflow-hidden">
-        <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
-          What Our Clients Say ✨
-        </h3>
-        <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
+    <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="reviews">
+      <div className="max-w-3xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 py-6 md:py-8 px-8 md:px-10 lg:px-12 text-center overflow-hidden transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative">
+        
+        {/* Inner Golden Glow Spotlights */}
+        <div className="absolute w-[250px] h-[250px] bg-amber-400/20 rounded-full blur-[75px] -top-16 -right-16 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
+        <div className="absolute w-[200px] h-[200px] bg-yellow-300/15 rounded-full blur-[60px] -bottom-16 -left-16 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
 
-      <div className="relative mt-8 md:mt-12 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
+        <div className="relative z-10 w-full">
+          <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
+            What Our Clients Say ✨
+          </h3>
+          <p className="mt-4 text-gray-600 font-[Poppins]">Real experiences from our beautiful customers.</p>
+
+      <div className="relative mt-4 md:mt-6 flex justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
 
         {/* Premium Left Arrow */}
         <button
@@ -105,7 +111,7 @@ export default function Reviews() {
           </svg>
         </button>
 
-        <div className="relative w-full max-w-2xl h-[350px] md:h-[280px] flex flex-col items-center justify-center">
+        <div className="relative w-full max-w-xl h-[290px] md:h-[220px] flex flex-col items-center justify-center">
 
           {/* Quote Icon */}
           <div className="absolute top-6 left-8 text-6xl text-green-200 opacity-50 font-serif leading-none">
@@ -154,19 +160,6 @@ export default function Reviews() {
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute bottom-6 flex gap-3">
-            {reviewsList.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setDirection(i > index ? 1 : -1);
-                  setIndex(i);
-                }}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Premium Right Arrow */}
@@ -181,13 +174,28 @@ export default function Reviews() {
 
       </div>
 
-        <div className="mt-10 md:mt-16 flex justify-center">
+      <div className="flex justify-center gap-3 mt-4 mb-2">
+        {reviewsList.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              setDirection(i > index ? 1 : -1);
+              setIndex(i);
+            }}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === index ? "bg-green-600 w-8" : "bg-gray-300 hover:bg-green-400"}`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+
+        <div className="mt-6 md:mt-8 flex justify-center">
           <button
             onClick={() => setIsModalOpen(true)}
             className="bg-white border-2 border-green-600 text-green-700 px-8 py-3 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg hover:shadow-green-900/10 flex items-center justify-center gap-2"
           >
             Write a Review ✍️
           </button>
+        </div>
         </div>
       </div>
 

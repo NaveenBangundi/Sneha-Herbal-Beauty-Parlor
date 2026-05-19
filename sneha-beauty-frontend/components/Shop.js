@@ -2,92 +2,335 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const productsList = [
-  { id: 1, name: "Henna Hair Mehendi", category: "Hair Care", price: 250, image: "/services/mehandi.jpg" },
-  { id: 2, name: "Nail Polish", category: "Cosmetics", price: 150, image: "/services/manicure.jpg" },
-  { id: 3, name: "Lipstick", category: "Cosmetics", price: 450, image: "/services/bridal.jpg" },
-  { id: 4, name: "Mehandi Cone", category: "Body Art", price: 50, image: "/services/mehandi.jpg" },
-  { id: 5, name: "Imitation Jewellery", category: "Accessories", price: 1200, image: "/services/bridal.jpg" },
-  { id: 6, name: "Moisturizer", category: "Skin Care", price: 350, image: "/services/facial.png" },
-  { id: 7, name: "Rose Water", category: "Skin Care", price: 120, image: "/services/facial.png" },
-  { id: 8, name: "Day Cream", category: "Skin Care", price: 400, image: "/services/facial.png" },
-  { id: 9, name: "Night Cream", category: "Skin Care", price: 450, image: "/services/facial.png" },
-  { id: 10, name: "Skin Care Kit", category: "Skin Care", price: 1500, image: "/services/facial.png" }
+  // HAIR (Trending)
+  {
+    id: 1,
+    name: "De Fabulous Reviver Hair Repair Shampoo 250ml",
+    category: "HAIR",
+    price: 1190,
+    originalPrice: 1400,
+    size: "250ml",
+    image: "/services/haircut.jpeg",
+    trending: true,
+    isBestseller: true,
+    discount: "15%"
+  },
+  {
+    id: 2,
+    name: "De Fabulous Reviver Hair Repair Conditioner 250ml",
+    category: "HAIR",
+    price: 1338,
+    originalPrice: 1575,
+    size: "250ml",
+    image: "/services/haircut.jpeg",
+    trending: true,
+    isBestseller: true,
+    discount: "15%"
+  },
+  {
+    id: 3,
+    name: "Schwarzkopf Professional Repair Rescue Shampoo 250ml",
+    category: "HAIR",
+    price: 867,
+    originalPrice: 1020,
+    size: "250ml",
+    image: "/services/haircut.jpeg",
+    trending: true,
+    isBestseller: true,
+    discount: "15%"
+  },
+  {
+    id: 4,
+    name: "De Fabulous Reviver Hair Repair Shampoo 250ml + Conditioner 250ml",
+    category: "HAIR",
+    price: 2678,
+    originalPrice: 3150,
+    size: "Kit",
+    image: "/services/haircut.jpeg",
+    trending: true,
+    isBestseller: true,
+    discount: "15%"
+  },
+  
+  // SKIN
+  {
+    id: 5,
+    name: "Hydrating Facial Moisturizer with Aloe Vera",
+    category: "SKIN",
+    price: 450,
+    originalPrice: 600,
+    size: "100ml",
+    image: "/services/facial.png",
+    trending: true,
+    isBestseller: true,
+    discount: "25%"
+  },
+  {
+    id: 6,
+    name: "Herbal Rose Water Skin Toner 200ml",
+    category: "SKIN",
+    price: 180,
+    originalPrice: 250,
+    size: "200ml",
+    image: "/services/facial.png",
+    trending: false,
+    isBestseller: true,
+    discount: "28%"
+  },
+  {
+    id: 7,
+    name: "Organic Glow Night Cream 50g",
+    category: "SKIN",
+    price: 450,
+    originalPrice: 550,
+    size: "50g",
+    image: "/services/facial.png",
+    trending: true,
+    isBestseller: false,
+    discount: "18%"
+  },
+  {
+    id: 8,
+    name: "Skin Care Brightening Kit",
+    category: "SKIN",
+    price: 1500,
+    originalPrice: 1800,
+    size: "Kit",
+    image: "/services/facial.png",
+    trending: false,
+    isBestseller: true,
+    discount: "16%"
+  },
+
+  // MAKEUP
+  {
+    id: 9,
+    name: "Premium Matte Liquid Lipstick Longwear",
+    category: "MAKEUP",
+    price: 499,
+    originalPrice: 699,
+    size: "6ml",
+    image: "/services/bridal.jpg",
+    trending: true,
+    isBestseller: true,
+    discount: "28%"
+  },
+  {
+    id: 10,
+    name: "HD Waterproof Liquid Foundation",
+    category: "MAKEUP",
+    price: 850,
+    originalPrice: 1200,
+    size: "30ml",
+    image: "/services/bridal.jpg",
+    trending: true,
+    isBestseller: false,
+    discount: "29%"
+  },
+  {
+    id: 11,
+    name: "Imitation Golden Jewellery Set",
+    category: "MAKEUP",
+    price: 1200,
+    originalPrice: 1600,
+    size: "Set",
+    image: "/services/bridal.jpg",
+    trending: false,
+    isBestseller: true,
+    discount: "25%"
+  }
 ];
 
 export default function Shop() {
-  const [showAll, setShowAll] = useState(false);
+  const [activeTab, setActiveTab] = useState("TRENDING");
+  const [startIndex, setStartIndex] = useState(0);
 
-  const displayedProducts = showAll ? productsList : productsList.slice(0, 4);
+  // Filter products based on selected tab
+  const filteredProducts = activeTab === "TRENDING"
+    ? productsList.filter(p => p.trending)
+    : productsList.filter(p => p.category === activeTab);
+
+  // Display only 4 products in horizontal window
+  const displayedProducts = filteredProducts.slice(startIndex, startIndex + 4);
+
+  const handleNext = () => {
+    if (startIndex + 4 < filteredProducts.length) {
+      setStartIndex(prev => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (startIndex > 0) {
+      setStartIndex(prev => prev - 1);
+    }
+  };
 
   return (
-    <div className="mt-20 md:mt-24 px-4 md:px-6 scroll-mt-28 mb-20" id="shop">
-      <div className="max-w-5xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-          <div>
-            <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
-              Our Shop 🛍️
-            </h3>
-            <p className="text-gray-600 mt-2 font-[Poppins]">
-              Discover our premium beauty products.
-            </p>
+    <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="shop">
+      <div className="max-w-6xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative overflow-hidden">
+        
+        {/* Inner Golden Glow Spotlights */}
+        <div className="absolute w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
+        <div className="absolute w-[250px] h-[250px] bg-yellow-300/15 rounded-full blur-[70px] -bottom-20 -left-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
+
+        <div className="relative z-10 w-full">
+          {/* Section Title - Styled with Playfair Display matching other main sections */}
+        <div className="text-center mb-8">
+          <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
+            Product Spotlight 🛍️
+          </h3>
+          <p className="mt-4 text-gray-600 font-[Poppins] font-light text-xs md:text-sm">
+            Discover our premium beauty products
+          </p>
+        </div>
+
+        {/* Tab Selection - Styled using green herbal theme */}
+        <div className="flex justify-center mb-10">
+          <div className="bg-green-50/80 backdrop-blur-md p-1.5 rounded-full flex gap-1 shadow-inner border border-green-100/50">
+            {["TRENDING", "SKIN", "HAIR", "MAKEUP"].map((tab) => {
+              const isActive = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    setStartIndex(0);
+                  }}
+                  className={`px-4 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-bold tracking-widest transition-all duration-300 ${
+                    isActive
+                      ? "bg-gradient-to-r from-green-600 to-green-800 text-white shadow-md scale-105"
+                      : "text-green-800 hover:text-green-950 font-semibold"
+                  }`}
+                >
+                  {tab}
+                </button>
+              );
+            })}
           </div>
+        </div>
+
+        {/* Product Carousel Grid */}
+        <div className="relative flex items-center gap-2 md:gap-4">
+          
+          {/* Left Scroll Button - Herbal Styled */}
           <button
-            onClick={() => setShowAll(!showAll)}
-            className="mt-6 md:mt-0 bg-white border border-green-600 text-green-600 px-6 py-3 rounded-full font-bold hover:bg-green-50 hover:scale-105 hover:shadow-lg transition-all duration-300 shadow-sm"
+            onClick={handlePrev}
+            disabled={startIndex === 0}
+            className={`w-10 h-10 shrink-0 rounded-full border border-green-100 flex items-center justify-center bg-white shadow-sm hover:bg-green-50 transition-all ${
+              startIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-green-800"
+            }`}
           >
-            {showAll ? "Show Less" : "View all products"}
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Products Row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-1">
+            <AnimatePresence mode="wait">
+              {displayedProducts.map((product) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-white border border-green-100/50 hover:border-[#E1B875]/50 rounded-2xl overflow-hidden relative flex flex-col shadow-sm hover:shadow-[0_0_25px_rgba(225,184,117,0.25)] hover:scale-[1.02] transition-all duration-300 group h-full"
+                >
+                  {/* Image Area */}
+                  <div className="h-60 w-full bg-white relative flex items-center justify-center p-6 border-b border-gray-100">
+                    
+                    {/* Wishlist Heart Icon - Styled in Herbal Green */}
+                    <button className="absolute top-4 left-4 text-green-600 hover:text-green-800 hover:scale-110 transition-transform">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </button>
+
+                    {/* Product Badges - Styled in Herbal/Pink palettes */}
+                    <div className="absolute top-4 right-4 flex flex-col gap-1 items-end z-10">
+                      {product.isBestseller && (
+                        <span className="bg-green-100 text-green-800 text-[8px] font-bold px-2 py-0.5 rounded tracking-widest uppercase">
+                          BESTSELLER
+                        </span>
+                      )}
+                      {product.discount && (
+                        <span className="bg-pink-100 text-pink-700 text-[8px] font-bold px-2 py-0.5 rounded tracking-wider">
+                          {product.discount} OFF
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Image */}
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                      onError={(e) => { e.target.src = "/hero-image.png"; }}
+                    />
+
+                    {/* Plus Button - Styled in Herbal Green */}
+                    <button className="absolute bottom-3 right-3 bg-green-700 text-white w-6 h-6 flex items-center justify-center rounded font-bold text-sm hover:bg-green-800 transition-colors">
+                      +
+                    </button>
+                  </div>
+
+                  {/* Clean Herbal Theme Card Body (Light/White) */}
+                  <div className="p-4 bg-gradient-to-t from-green-50/30 to-white flex flex-col flex-1 text-left">
+                    <h4 className="text-gray-800 text-xs md:text-sm font-medium font-[Poppins] leading-snug mb-2 line-clamp-2 h-10">
+                      {product.name}
+                    </h4>
+
+                    {/* Size tag - Herbal Styled */}
+                    <span className="inline-block bg-green-100/50 text-green-800 text-[9px] font-semibold px-3 py-1 rounded-full w-fit mb-4 tracking-wider font-[Poppins]">
+                      {product.size}
+                    </span>
+
+                    {/* Price and Add to Cart */}
+                    <div className="mt-auto">
+                      <div className="flex items-baseline gap-2 mb-3">
+                        <span className="text-green-900 font-bold text-sm md:text-base">
+                          ₹{product.price.toLocaleString()}
+                        </span>
+                        {product.originalPrice && (
+                          <span className="text-gray-400 line-through text-xs font-light">
+                            ₹{product.originalPrice.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
+
+                      <button className="w-full py-2 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white font-bold text-[10px] md:text-xs uppercase tracking-widest rounded active:scale-[0.98] transition-all duration-300 shadow-md">
+                        ADD TO CART
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          {/* Right Scroll Button - Herbal Styled */}
+          <button
+            onClick={handleNext}
+            disabled={startIndex + 4 >= filteredProducts.length}
+            className={`w-10 h-10 shrink-0 rounded-full border border-green-100 flex items-center justify-center bg-white shadow-sm hover:bg-green-50 transition-all ${
+              startIndex + 4 >= filteredProducts.length ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-green-800"
+            }`}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
 
-        <motion.div 
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8"
-        >
-          <AnimatePresence>
-            {displayedProducts.map((product) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={product.id}
-                className="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 hover:shadow-2xl hover:ring-2 hover:ring-green-400/50 transition-all duration-300 cursor-pointer flex flex-col"
-              >
-                {/* Image Placeholder */}
-                <div className="h-56 w-full bg-gray-100 relative overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => { e.target.src = "/hero-image.png"; }}
-                  />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
-                </div>
+        {/* View All Button - Styled in Herbal Theme Outline */}
+        <div className="flex justify-center mt-10">
+          <button className="bg-white border-2 border-green-600 text-green-700 font-bold text-[10px] md:text-xs tracking-widest uppercase px-8 py-3 rounded-full shadow-lg hover:bg-green-50 hover:scale-105 active:scale-98 transition-all duration-300">
+            View All Products
+          </button>
+        </div>
 
-                {/* Content */}
-                <div className="p-5 flex flex-col flex-1 bg-gradient-to-t from-green-50/50 to-white">
-                  <span className="text-xs font-semibold text-green-600 uppercase tracking-wider mb-1 font-[Poppins]">
-                    {product.category}
-                  </span>
-                  <h4 className="text-lg font-bold text-gray-800 font-[Playfair Display] mb-2 leading-tight">
-                    {product.name}
-                  </h4>
-                  <div className="mt-auto flex items-center justify-between">
-                    <span className="text-xl font-bold text-green-800">
-                      ₹{product.price}
-                    </span>
-                    <button className="bg-green-100 text-green-700 p-2 rounded-full group-hover:bg-green-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

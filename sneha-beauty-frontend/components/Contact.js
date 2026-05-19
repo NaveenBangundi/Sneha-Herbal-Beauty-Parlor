@@ -1,8 +1,14 @@
 export default function Contact() {
   return (
-    <div className="mt-20 md:mt-32 px-4 md:px-6 pb-20 scroll-mt-28" id="contact">
-      <div className="max-w-5xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12">
-        <h3 className="text-3xl md:text-5xl font-bold text-center text-gray-800 font-[Playfair Display]">
+    <div className="mt-16 md:mt-24 px-4 md:px-6 pb-24 scroll-mt-28" id="contact">
+      <div className="max-w-5xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative overflow-hidden">
+        
+        {/* Inner Golden Glow Spotlights */}
+        <div className="absolute w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
+        <div className="absolute w-[250px] h-[250px] bg-yellow-300/15 rounded-full blur-[70px] -bottom-20 -left-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
+
+        <div className="relative z-10 w-full">
+          <h3 className="text-3xl md:text-5xl font-bold text-center text-gray-800 font-[Playfair Display]">
           Visit Us 📍
         </h3>
         <p className="text-center text-gray-600 mt-4 max-w-2xl mx-auto font-[Poppins]">
@@ -69,6 +75,7 @@ export default function Contact() {
               loading="lazy"
             ></iframe>
           </div>
+        </div>
         </div>
       </div>
     </div>
