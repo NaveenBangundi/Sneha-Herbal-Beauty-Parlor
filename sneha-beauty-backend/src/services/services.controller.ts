@@ -22,6 +22,17 @@ export class ServicesController {
     return this.servicesService.findAll();
   }
 
+  @Get('seed')
+  @ApiOperation({ summary: 'Seed default beauty services in MongoDB' })
+  @ApiResponse({ status: 200, description: 'Database successfully seeded.' })
+  async seed() {
+    await this.servicesService.onModuleInit();
+    return {
+      message: 'Seeding executed successfully!',
+      services: await this.servicesService.findAll()
+    };
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a specific beauty service by id' })
   @ApiParam({ name: 'id', description: 'The ID of the service to fetch' })

@@ -23,6 +23,12 @@ export class Booking {
 
   @Prop({ default: 'pending', enum: ['pending', 'confirmed', 'completed', 'cancelled'] })
   status: string;
+
+  @Prop()
+  tokenNumber?: string;
+
+  @Prop()
+  waitingTime?: string;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);
