@@ -18,4 +18,12 @@ export class ServicesService {
   async findAll(): Promise<Service[]> {
     return this.serviceModel.find().exec();
   }
+
+  async findOne(id: string): Promise<Service> {
+    const service = await this.serviceModel.findById(id).exec();
+    if (!service) {
+      throw new NotFoundException(`Service #${id} not found`);
+    }
+    return service;
+  }
 }
