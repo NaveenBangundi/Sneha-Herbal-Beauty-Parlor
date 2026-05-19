@@ -184,11 +184,11 @@ export default function ServiceDetail() {
             <div className="mt-10 flex gap-4">
               <button 
                 onClick={() => setIsModalOpen(true)}
-                className="flex-1 bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
+                className="flex-1 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-4 rounded-xl font-bold hover:scale-105 hover:shadow-xl transition-all duration-300 shadow-lg shadow-green-200"
               >
                 Book Now
               </button>
-              <button className="px-6 bg-white border border-green-600 text-green-600 py-4 rounded-xl font-bold hover:bg-green-50 transition-colors">
+              <button className="px-6 bg-white border border-green-600 text-green-600 py-4 rounded-xl font-bold hover:bg-green-50 hover:scale-105 hover:shadow-lg transition-all duration-300">
                 Share
               </button>
             </div>
@@ -223,7 +223,7 @@ export default function ServiceDetail() {
                       setIsModalOpen(false);
                       setBookingSuccess(false);
                     }}
-                    className="mt-6 w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition-colors"
+                    className="mt-6 w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-3 rounded-xl font-bold hover:scale-105 hover:shadow-lg transition-all duration-300"
                   >
                     Close
                   </button>
@@ -275,7 +275,7 @@ export default function ServiceDetail() {
                   <button 
                     type="submit"
                     disabled={bookingLoading}
-                    className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-colors mt-6 flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-4 rounded-xl font-bold hover:scale-105 hover:shadow-xl transition-all duration-300 mt-6 flex items-center justify-center gap-2"
                   >
                     {bookingLoading ? (
                       <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
