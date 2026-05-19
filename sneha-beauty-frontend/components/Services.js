@@ -1,34 +1,27 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 
 const fallbackServices = [
-  { _id: "1", name: "Hydra Facial", imageUrl: "/services/facial.png", description: "Deep cleansing and hydration for glowing skin." },
-  { _id: "2", name: "Bridal Makeup", imageUrl: "/services/bridal.jpg", description: "Expert makeup to make you feel like a princess." },
-  { _id: "3", name: "Mehandi", imageUrl: "/services/mehandi.jpg", description: "Beautiful and intricate mehandi designs." },
-  { _id: "4", name: "Manicure", imageUrl: "/services/manicure.jpg", description: "Relaxing manicure sessions for elegant hands." },
-  { _id: "5", name: "Pedicure", imageUrl: "/services/pedicure.png", description: "Rejuvenating pedicure to soothe your feet." },
-  { _id: "6", name: "Eyebrow", imageUrl: "/services/eyebrow.jpg", description: "Precision threading and shaping." },
-  { _id: "7", name: "Haircut", imageUrl: "/services/haircut.jpeg", description: "Trendy haircuts to match your style." }
+  { _id: "1", name: "Face Rituals", imageUrl: "/services/facial.png", description: "Deep cleansing and hydration for glowing skin." },
+  { _id: "2", name: "Head Rituals", imageUrl: "/services/haircut.jpeg", description: "Rejuvenating head treatments." },
+  { _id: "3", name: "Pigmentation Treatment", imageUrl: "/services/bridal.jpg", description: "Advanced skin care solutions." },
+  { _id: "4", name: "Skin Renewal", imageUrl: "/services/mehandi.jpg", description: "Complete skin renewal therapy." },
+  { _id: "5", name: "Glass Shine Hair", imageUrl: "/services/manicure.jpg", description: "Premium hair care for shine." }
 ];
 
 export default function Services() {
   const router = useRouter();
   const [servicesData, setServicesData] = useState(fallbackServices);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(2); // Start with middle active
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Initial check
     setIsMobile(window.innerWidth < 768);
-    
-    // Resize listener
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Fetch dynamic services
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -46,146 +39,79 @@ export default function Services() {
     fetchServices();
   }, []);
 
-  // Auto-scroll every 3.5 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      handleNext();
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [currentIndex]);
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % servicesData.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + servicesData.length) % servicesData.length);
-  };
-
-  // Helper to calculate wrapping circular offset
-  const getOffset = (index) => {
-    let diff = index - currentIndex;
-    if (diff > servicesData.length / 2) diff -= servicesData.length;
-    if (diff < -servicesData.length / 2) diff += servicesData.length;
-    return diff;
-  };
+  // Display only first 5 services to maintain the accordion layout aesthetic
+  const displayedServices = servicesData.slice(0, 5);
 
   return (
-    <div className="mt-20 md:mt-24 px-4 md:px-6 scroll-mt-28 overflow-hidden" id="services">
-      <h3 className="text-3xl md:text-5xl font-bold text-center text-gray-800 font-[Playfair Display]">
-        Our Services 💄
+    <div className="mt-16 md:mt-24 px-4 md:px-8 max-w-[1400px] mx-auto scroll-mt-28 mb-20" id="services">
+      <h3 className="text-2xl md:text-3xl text-center text-gray-900 uppercase tracking-[0.2em] font-light mb-12">
+        Innovation Services
       </h3>
-      <p className="text-center text-gray-600 mt-4 font-[Poppins]">
-        Explore our premium herbal treatments.
-      </p>
 
-      <div className="relative mt-12 md:mt-20 max-w-[1400px] mx-auto h-[400px] md:h-[550px] flex items-center justify-center">
-        
-        {/* Premium Left Arrow */}
-        <button 
-          onClick={handlePrev} 
-          className="absolute left-2 md:left-4 lg:left-10 z-50 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-          <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
+      <div className="flex flex-col md:flex-row gap-3 md:gap-4 h-[500px] md:h-[450px] w-full">
+        {displayedServices.map((service, index) => {
+          const isActive = currentIndex === index;
 
-        {/* 3D Container */}
-        <div className="relative w-full h-full flex items-center justify-center perspective-[1200px]">
-          <AnimatePresence mode="popLayout">
-            {servicesData.map((service, i) => {
-              const offset = getOffset(i);
-              const absOffset = Math.abs(offset);
-              const isActive = offset === 0;
+          return (
+            <div
+              key={service._id || index}
+              className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] ${
+                isActive ? "flex-[4] md:flex-[5]" : "flex-[1]"
+              }`}
+              onMouseEnter={() => !isMobile && setCurrentIndex(index)}
+              onClick={() => {
+                if (isMobile) setCurrentIndex(index);
+                // On mobile, maybe tapping again navigates?
+                // For now, let the Explore Now button handle navigation.
+              }}
+            >
+              {/* Background Image */}
+              <img
+                src={service.imageUrl || service.img || "/placeholder.jpg"}
+                alt={service.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
+              />
+              
+              {/* Gradient Overlay for text readability */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-60 md:opacity-40' : 'opacity-80'}`}></div>
 
-              // Don't render cards that are too far back
-              if (absOffset > 2) return null;
-
-              // Dynamic offsets for buttery smooth JS math instead of CSS calc
-              const xShift = isMobile ? offset * 90 : offset * 280;
-              const yShift = isMobile ? absOffset * 10 : 0; // slight push down on mobile
-
-              return (
-                <motion.div
-                  key={i}
-                  initial={false}
-                  animate={{
-                    x: xShift,
-                    y: yShift,
-                    scale: 1 - absOffset * (isMobile ? 0.2 : 0.15),
-                    zIndex: 10 - absOffset,
-                    opacity: 1 - absOffset * 0.4,
-                    rotateY: offset * -15
-                  }}
-                  transition={{ 
-                    type: "spring", 
-                    stiffness: 250, 
-                    damping: 25, 
-                    mass: 0.8 
-                  }}
-                  className={`absolute w-[240px] md:w-[380px] aspect-[3/4] bg-white rounded-3xl shadow-2xl border border-white/60 overflow-hidden flex flex-col will-change-transform transform-gpu ${isActive ? 'cursor-pointer ring-4 ring-green-400/50' : 'cursor-pointer'}`}
-                  onClick={() => {
-                    if (!isActive) {
-                      setCurrentIndex(i);
-                    } else if (service._id) {
-                      router.push(`/services/${service._id}`);
-                    }
-                  }}
-                  title={isActive ? "Click to view details" : ""}
-                >
-                  {/* IMAGE */}
-                  <div className="absolute inset-0 w-full h-full bg-gray-100 overflow-hidden">
-                    <img
-                      src={service.imageUrl || service.img}
-                      alt={service.name}
-                      className="w-full h-full object-cover pointer-events-none"
-                    />
-                    {/* Shadow overlay for inactive cards */}
-                    {!isActive && <div className="absolute inset-0 bg-black/30 transition-opacity duration-300"></div>}
-                    {/* Gradient overlay for text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
-                  </div>
-
-                  {/* CONTENT */}
-                  <div className="relative h-full p-4 md:p-6 flex flex-col justify-end items-center text-center z-10">
-                    <h4 className="text-base md:text-2xl font-bold text-white font-[Playfair Display]">
+              {/* Content Container */}
+              <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+                {isActive ? (
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn transition-opacity duration-500 delay-300">
+                    <h4 className="text-white text-xl md:text-2xl font-semibold uppercase tracking-wider drop-shadow-md">
                       {service.name}
                     </h4>
-                    <p className="mt-1 md:mt-2 text-gray-200 font-[Poppins] text-xs md:text-sm leading-relaxed">
-                      {service.description || service.desc}
-                    </p>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/services/${service._id}`);
+                      }}
+                      className="whitespace-nowrap px-6 py-2 rounded shadow-lg text-black font-semibold text-xs md:text-sm uppercase tracking-wider bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:brightness-110 transition-all"
+                    >
+                      Explore Now
+                    </button>
                   </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </div>
-
-        {/* Premium Right Arrow */}
-        <button 
-          onClick={handleNext} 
-          className="absolute right-2 md:right-4 lg:right-10 z-50 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/50 text-green-900 hover:bg-white/40 hover:scale-110 transition-all duration-300 group overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-          <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
-
+                ) : (
+                  <div className="h-full w-full flex items-end justify-center pb-2 opacity-100 transition-opacity duration-300">
+                    <h4 className="text-white text-sm md:text-base font-bold uppercase tracking-[0.15em] whitespace-nowrap [writing-mode:vertical-rl] rotate-180 drop-shadow-md">
+                      {service.name}
+                    </h4>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
-      
-      {/* Pagination Dots */}
-      <div className="flex justify-center gap-2 mt-4 md:mt-8">
-        {servicesData.map((_, i) => (
-          <button 
-            key={i} 
-            onClick={() => setCurrentIndex(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 shadow-sm ${i === currentIndex ? "bg-green-600 w-6" : "bg-green-200 hover:bg-green-400"}`} 
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
+
+      <div className="flex justify-center mt-12">
+        <button
+          onClick={() => router.push("/services")}
+          className="px-8 py-3 rounded shadow-xl text-black font-semibold text-sm uppercase tracking-widest bg-gradient-to-r from-[#F6E1B6] via-[#E1B875] to-[#F6E1B6] hover:scale-105 transition-transform"
+        >
+          More Services
+        </button>
       </div>
     </div>
   );
