@@ -50,10 +50,12 @@ export default function Contact() {
               </button>
               
               <button
-                onClick={() => window.open("https://www.google.com/maps/dir/?api=1&destination=Manvi,+Karnataka+584123")}
+                onClick={() => {
+                  document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="bg-white border-2 border-green-600 text-green-700 px-5 py-2.5 rounded-full text-sm md:text-base font-medium hover:bg-green-50 hover:scale-105 transition-all shadow-md hover:shadow-green-900/10 w-full sm:w-auto flex items-center justify-center whitespace-nowrap"
               >
-                Navigate to Shop 📍
+                Navigate to Shop 🛍️
               </button>
             </div>
           </div>
