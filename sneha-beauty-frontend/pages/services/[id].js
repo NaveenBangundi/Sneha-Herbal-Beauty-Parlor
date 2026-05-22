@@ -18,7 +18,7 @@ export default function ServiceDetail() {
   const { id } = router.query;
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   // Booking Modal States
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,28 +34,20 @@ export default function ServiceDetail() {
     if (!id) return;
 
     const fetchService = async () => {
-      try {
-        const res = await fetch(`http://localhost:3001/services/${id}`);
-        if (res.ok) {
-          const data = await res.json();
+      const res = await fetch(`http://localhost:3001/services/${id}`).catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data) {
           setService(data);
-        } else {
-          const fallback = fallbackServices.find(s => s._id === id);
-          if (fallback) {
-            setService(fallback);
-          } else {
-            console.error("Failed to fetch service and no fallback found");
-          }
+          setLoading(false);
+          return;
         }
-      } catch (error) {
-        console.error("Error fetching service:", error);
-        const fallback = fallbackServices.find(s => s._id === id);
-        if (fallback) {
-          setService(fallback);
-        }
-      } finally {
-        setLoading(false);
       }
+      const fallback = fallbackServices.find(s => s._id === id);
+      if (fallback) {
+        setService(fallback);
+      }
+      setLoading(false);
     };
 
     fetchService();
@@ -64,30 +56,25 @@ export default function ServiceDetail() {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     setBookingLoading(true);
-    try {
-      const res = await fetch("http://localhost:3001/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...formData,
-          serviceId: id
-        })
-      });
 
-      if (res.ok) {
-        setBookingSuccess(true);
-      } else {
-        console.error("Booking failed");
-        alert("Booking failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error creating booking:", error);
-      alert("Error creating booking. Please try again.");
-    } finally {
-      setBookingLoading(false);
+    const res = await fetch("http://localhost:3001/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ...formData,
+        serviceId: id
+      })
+    }).catch(() => null);
+
+    if (res && res.ok) {
+      setBookingSuccess(true);
+    } else {
+      console.error("Booking failed");
+      alert("Booking failed. Server is currently offline. Please try booking via WhatsApp directly!");
     }
+    setBookingLoading(false);
   };
 
   if (loading) {
@@ -119,16 +106,16 @@ export default function ServiceDetail() {
           Back to Services
         </Link>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="bg-white/60 rounded-3xl shadow-2xl overflow-hidden border border-gold-light/30 luxury-shadow"
         >
           <div className="relative h-[400px] w-full bg-gray-100">
-            <img 
-              src={service.imageUrl || "/services/facial.png"} 
-              alt={service.name} 
+            <img
+              src={service.imageUrl || "/services/facial.png"}
+              alt={service.name}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -163,7 +150,7 @@ export default function ServiceDetail() {
               <p className="text-primary-dark/80 leading-relaxed mb-6">
                 {service.description}
               </p>
-              
+
               <h2 className="text-2xl font-bold text-primary-dark mb-4 font-serif">What's Included</h2>
               <ul className="space-y-3 text-primary-dark/80">
                 <li className="flex items-center">
@@ -182,7 +169,7 @@ export default function ServiceDetail() {
             </div>
 
             <div className="mt-10 flex gap-4">
-              <button 
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="flex-1 bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 shadow-lg shadow-primary-light/50 border border-gold-medium/10"
               >
@@ -200,7 +187,7 @@ export default function ServiceDetail() {
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 bg-[#0B2B24]/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -218,7 +205,7 @@ export default function ServiceDetail() {
                   <div className="w-16 h-16 bg-primary-light text-primary-dark rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border border-gold-primary/10">✓</div>
                   <h4 className="text-xl font-bold text-primary-dark mb-2 font-serif">Booking Successful!</h4>
                   <p className="text-primary-dark/80 text-sm">We will contact you shortly to confirm.</p>
-                  <button 
+                  <button
                     onClick={() => {
                       setIsModalOpen(false);
                       setBookingSuccess(false);
@@ -232,47 +219,47 @@ export default function ServiceDetail() {
                 <form onSubmit={handleBookingSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-primary-dark mb-1">Name</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       required
                       className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                       value={formData.customerName}
-                      onChange={(e) => setFormData({...formData, customerName: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-primary-dark mb-1">Phone</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       required
                       className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                       value={formData.customerPhone}
-                      onChange={(e) => setFormData({...formData, customerPhone: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-primary-dark mb-1">Date</label>
-                      <input 
-                        type="date" 
+                      <input
+                        type="date"
                         required
                         className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                         value={formData.appointmentDate}
-                        onChange={(e) => setFormData({...formData, appointmentDate: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, appointmentDate: e.target.value })}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-primary-dark mb-1">Time</label>
-                      <input 
-                        type="time" 
+                      <input
+                        type="time"
                         required
                         className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                         value={formData.appointmentTime}
-                        onChange={(e) => setFormData({...formData, appointmentTime: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, appointmentTime: e.target.value })}
                       />
                     </div>
                   </div>
-                  <button 
+                  <button
                     type="submit"
                     disabled={bookingLoading}
                     className="w-full bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 mt-6 flex items-center justify-center gap-2 border border-gold-medium/10"
