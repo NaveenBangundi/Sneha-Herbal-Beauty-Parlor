@@ -93,7 +93,7 @@ export default function Home() {
       {/* 🌟 HERO SECTION */}
       <div className="pt-28 md:pt-36 flex justify-center px-4 md:px-6 scroll-mt-28" id="home">
 
-        <div className="bg-white/40 border border-white/70 backdrop-blur-md rounded-[2.5rem] px-6 md:px-12 py-10 md:py-16 max-w-6xl w-full flex flex-col md:flex-row items-center gap-10 md:gap-12 shadow-2xl luxury-shadow">
+        <div className="section-card rounded-[2.5rem] px-6 md:px-12 py-10 md:py-16 max-w-6xl w-full flex flex-col md:flex-row items-center gap-10 md:gap-12">
 
           {/* TEXT */}
           <div className="flex-1 text-center md:text-left space-y-6">

@@ -43,7 +43,7 @@ export default function Services() {
   const displayedServices = servicesData.slice(0, 5);
   return (
     <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="services">
-      <div className="max-w-6xl mx-auto bg-white/40 rounded-[2rem] shadow-2xl border border-white/70 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-gold-primary/30 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] relative overflow-hidden luxury-shadow">
+      <div className="max-w-6xl mx-auto section-card rounded-[2rem] p-8 md:p-10 lg:p-12 relative overflow-hidden">
         
         {/* Inner Golden Glow Spotlights */}
         <div className="absolute w-[300px] h-[300px] bg-gold-light/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
@@ -69,8 +69,8 @@ export default function Services() {
               return (
                 <div
                   key={service._id || index}
-                  className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] ${
-                    isActive ? "flex-[4] md:flex-[5]" : "flex-[1]"
+                  className={`relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.25,0.8,0.25,1)] smoky-card ${
+                    isActive ? "flex-[4] md:flex-[5] smoky-card-active" : "flex-[1]"
                   }`}
                   onMouseEnter={() => !isMobile && setCurrentIndex(index)}
                   onClick={() => {
@@ -81,14 +81,19 @@ export default function Services() {
                   <img
                     src={service.imageUrl || service.img || "/placeholder.jpg"}
                     alt={service.name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out hover:scale-105"
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out hover:scale-105 ${
+                      isActive ? "brightness-105 contrast-100 saturate-110" : "brightness-[0.75] contrast-[1.05] saturate-[90%]"
+                    }`}
                   />
                   
+                  {/* Smoky Vignette Overlay */}
+                  <div className={`absolute inset-0 smoky-overlay transition-all duration-700 ${isActive ? 'smoky-overlay-active' : ''} z-2`}></div>
+
                   {/* Gradient Overlay for text readability */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-65 md:opacity-45' : 'opacity-80'}`}></div>
+                  <div className={`absolute inset-0 bg-gradient-to-t from-primary-dark/90 via-primary-dark/30 to-gold-primary/10 transition-opacity duration-700 z-1 ${isActive ? 'opacity-60 md:opacity-40' : 'opacity-85'}`}></div>
 
                   {/* Content Container */}
-                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end">
+                  <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end z-10">
                     {isActive ? (
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 animate-fadeIn transition-opacity duration-500 delay-300">
                         <h4 className="text-white text-xl md:text-2xl font-semibold uppercase tracking-wider drop-shadow-md font-serif">

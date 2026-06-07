@@ -123,7 +123,7 @@ export default function ServiceDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/60 rounded-3xl shadow-2xl overflow-hidden border border-gold-light/30 luxury-shadow"
+          className="section-card rounded-[2rem] overflow-hidden"
         >
           <div className="relative h-[400px] w-full bg-gray-100">
             <img 

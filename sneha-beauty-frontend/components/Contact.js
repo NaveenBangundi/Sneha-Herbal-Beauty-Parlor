@@ -1,7 +1,7 @@
 export default function Contact() {
   return (
     <div className="mt-16 md:mt-24 px-4 md:px-6 pb-24 scroll-mt-28" id="contact">
-      <div className="max-w-5xl mx-auto bg-white/40 rounded-[2rem] shadow-2xl border border-white/70 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-gold-primary/30 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] relative overflow-hidden luxury-shadow">
+      <div className="max-w-5xl mx-auto section-card rounded-[2rem] p-8 md:p-10 lg:p-12 relative overflow-hidden">
         
         {/* Inner Golden Glow Spotlights */}
         <div className="absolute w-[300px] h-[300px] bg-gold-light/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
