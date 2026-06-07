@@ -92,17 +92,17 @@ export default function ServiceDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-linen via-sand to-gold-light/20">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gold-primary"></div>
       </div>
     );
   }
 
   if (!service) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-white">
-        <h1 className="text-2xl font-bold text-gray-800">Service not found</h1>
-        <Link href="/" className="mt-4 text-green-600 hover:text-green-700 font-medium">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-linen via-sand to-gold-light/20">
+        <h1 className="text-2xl font-bold text-primary-dark">Service not found</h1>
+        <Link href="/" className="mt-4 text-gold-dark hover:text-gold-medium font-medium">
           ← Back to Home
         </Link>
       </div>
@@ -110,9 +110,9 @@ export default function ServiceDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white font-[Poppins]">
+    <div className="min-h-screen bg-gradient-to-br from-linen via-sand to-gold-light/20 font-[Poppins]">
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center text-green-600 hover:text-green-700 font-medium mb-8 transition-colors">
+        <Link href="/" className="inline-flex items-center text-gold-dark hover:text-gold-medium font-medium mb-8 transition-colors">
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7 7-7" />
           </svg>
@@ -123,7 +123,7 @@ export default function ServiceDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/60"
+          className="bg-white/60 rounded-3xl shadow-2xl overflow-hidden border border-gold-light/30 luxury-shadow"
         >
           <div className="relative h-[400px] w-full bg-gray-100">
             <img 
@@ -133,49 +133,49 @@ export default function ServiceDetail() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
             <div className="absolute bottom-6 left-6 right-6">
-              <h1 className="text-4xl font-bold text-white font-[Playfair Display] mb-2">
+              <h1 className="text-4xl font-bold text-white font-serif mb-2">
                 {service.name}
               </h1>
-              <span className="bg-green-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg">
+              <span className="bg-primary-dark text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-lg border border-gold-primary/25">
                 Premium Service
               </span>
             </div>
           </div>
 
           <div className="p-8 md:p-10">
-            <div className="flex flex-wrap gap-6 mb-8 text-sm text-gray-600">
+            <div className="flex flex-wrap gap-6 mb-8 text-sm text-primary-dark/80">
               <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 {service.durationInMinutes} Minutes
               </div>
               <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v1m0 5v1m0-1c-1.11 0-2.08-.402-2.599-1M12 13v1m0-1v-1m0 5h1m-1 0h-1" />
                 </svg>
                 ₹{service.price}
               </div>
             </div>
 
-            <div className="prose prose-green max-w-none">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4 font-[Playfair Display]">About this Service</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
+            <div className="prose prose-stone max-w-none">
+              <h2 className="text-2xl font-bold text-primary-dark mb-4 font-serif">About this Service</h2>
+              <p className="text-primary-dark/80 leading-relaxed mb-6">
                 {service.description}
               </p>
               
-              <h2 className="text-2xl font-bold text-gray-800 mb-4 font-[Playfair Display]">What's Included</h2>
-              <ul className="space-y-3 text-gray-600">
+              <h2 className="text-2xl font-bold text-primary-dark mb-4 font-serif">What's Included</h2>
+              <ul className="space-y-3 text-primary-dark/80">
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <svg className="w-5 h-5 mr-3 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                   Consultation with our expert therapists
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <svg className="w-5 h-5 mr-3 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                   Premium herbal products tailored to your skin type
                 </li>
                 <li className="flex items-center">
-                  <svg className="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                  <svg className="w-5 h-5 mr-3 text-gold-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                   Relaxing and hygienic environment
                 </li>
               </ul>
@@ -184,11 +184,11 @@ export default function ServiceDetail() {
             <div className="mt-10 flex gap-4">
               <button 
                 onClick={() => setIsModalOpen(true)}
-                className="flex-1 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 shadow-lg shadow-green-200"
+                className="flex-1 bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 shadow-lg shadow-primary-light/50 border border-gold-medium/10"
               >
                 Book Now
               </button>
-              <button className="px-8 bg-white border-2 border-green-600 text-green-600 py-4 rounded-xl font-bold hover:bg-green-50 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+              <button className="px-8 bg-transparent border border-gold-primary text-gold-dark py-4 rounded-xl font-bold hover:bg-gold-light/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 Share
               </button>
             </div>
@@ -199,7 +199,7 @@ export default function ServiceDetail() {
       {/* Booking Modal */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-[#0B2B24]/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -207,7 +207,7 @@ export default function ServiceDetail() {
               className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl"
             >
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800 font-[Playfair Display]">Book Appointment</h3>
+                <h3 className="text-2xl font-bold text-primary-dark font-serif">Book Appointment</h3>
                 <button onClick={() => setIsModalOpen(false)} className="p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-colors flex items-center justify-center">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6L18 18" /></svg>
                 </button>
@@ -215,15 +215,15 @@ export default function ServiceDetail() {
 
               {bookingSuccess ? (
                 <div className="text-center py-6">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-2xl mx-auto mb-4">✓</div>
-                  <h4 className="text-xl font-bold text-gray-800 mb-2">Booking Successful!</h4>
-                  <p className="text-gray-600 text-sm">We will contact you shortly to confirm.</p>
+                  <div className="w-16 h-16 bg-primary-light text-primary-dark rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border border-gold-primary/10">✓</div>
+                  <h4 className="text-xl font-bold text-primary-dark mb-2 font-serif">Booking Successful!</h4>
+                  <p className="text-primary-dark/80 text-sm">We will contact you shortly to confirm.</p>
                   <button 
                     onClick={() => {
                       setIsModalOpen(false);
                       setBookingSuccess(false);
                     }}
-                    className="mt-6 w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-3 rounded-xl font-bold hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                    className="mt-6 w-full bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white py-3 rounded-xl font-bold hover:-translate-y-1 hover:shadow-lg transition-all duration-300 border border-gold-medium/10"
                   >
                     Close
                   </button>
@@ -231,42 +231,42 @@ export default function ServiceDetail() {
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <label className="block text-sm font-medium text-primary-dark mb-1">Name</label>
                     <input 
                       type="text" 
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                      className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                       value={formData.customerName}
                       onChange={(e) => setFormData({...formData, customerName: e.target.value})}
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <label className="block text-sm font-medium text-primary-dark mb-1">Phone</label>
                     <input 
                       type="tel" 
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                      className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                       value={formData.customerPhone}
                       onChange={(e) => setFormData({...formData, customerPhone: e.target.value})}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                      <label className="block text-sm font-medium text-primary-dark mb-1">Date</label>
                       <input 
                         type="date" 
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                        className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                         value={formData.appointmentDate}
                         onChange={(e) => setFormData({...formData, appointmentDate: e.target.value})}
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                      <label className="block text-sm font-medium text-primary-dark mb-1">Time</label>
                       <input 
                         type="time" 
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all text-gray-800"
+                        className="w-full px-4 py-3 rounded-xl border border-gold-light focus:ring-2 focus:ring-gold-primary focus:border-transparent outline-none transition-all text-primary-dark bg-linen"
                         value={formData.appointmentTime}
                         onChange={(e) => setFormData({...formData, appointmentTime: e.target.value})}
                       />
@@ -275,7 +275,7 @@ export default function ServiceDetail() {
                   <button 
                     type="submit"
                     disabled={bookingLoading}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 mt-6 flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white py-4 rounded-xl font-bold hover:-translate-y-1 hover:shadow-xl transition-all duration-300 mt-6 flex items-center justify-center gap-2 border border-gold-medium/10"
                   >
                     {bookingLoading ? (
                       <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>

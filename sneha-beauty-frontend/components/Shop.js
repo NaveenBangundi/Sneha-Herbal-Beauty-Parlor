@@ -167,26 +167,26 @@ export default function Shop() {
 
   return (
     <div className="mt-16 md:mt-24 px-4 md:px-6 scroll-mt-28" id="shop">
-      <div className="max-w-6xl mx-auto bg-white/80 rounded-[2rem] shadow-2xl border border-white/60 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-[#E1B875]/40 hover:shadow-[0_0_40px_rgba(225,184,117,0.3)] relative overflow-hidden">
+      <div className="max-w-6xl mx-auto bg-white/40 rounded-[2rem] shadow-2xl border border-white/70 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-gold-primary/30 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] relative overflow-hidden luxury-shadow">
         
         {/* Inner Golden Glow Spotlights */}
-        <div className="absolute w-[300px] h-[300px] bg-amber-400/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
-        <div className="absolute w-[250px] h-[250px] bg-yellow-300/15 rounded-full blur-[70px] -bottom-20 -left-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
+        <div className="absolute w-[300px] h-[300px] bg-gold-light/20 rounded-full blur-[80px] -top-20 -right-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "6s" }}></div >
+        <div className="absolute w-[250px] h-[250px] bg-primary-light/35 rounded-full blur-[70px] -bottom-20 -left-20 pointer-events-none z-0 animate-pulse" style={{ animationDuration: "8s" }}></div >
 
         <div className="relative z-10 w-full">
-          {/* Section Title - Styled with Playfair Display matching other main sections */}
+          {/* Section Title */}
         <div className="text-center mb-8">
-          <h3 className="text-3xl md:text-5xl font-bold text-gray-800 font-[Playfair Display]">
+          <h3 className="text-3xl md:text-5xl font-semibold text-primary-dark font-serif">
             Product Spotlight 🛍️
           </h3>
-          <p className="mt-4 text-gray-600 font-[Poppins] font-light text-xs md:text-sm">
+          <p className="mt-4 text-primary-dark/70 font-[Poppins] font-light text-xs md:text-sm">
             Discover our premium beauty products
           </p>
         </div>
 
-        {/* Tab Selection - Styled using green herbal theme */}
+        {/* Tab Selection */}
         <div className="flex justify-center mb-10">
-          <div className="bg-green-50/80 backdrop-blur-md p-1.5 rounded-full flex gap-1 shadow-inner border border-green-100/50">
+          <div className="bg-[#EAF2F0]/80 backdrop-blur-md p-1.5 rounded-full flex gap-1 shadow-inner border border-gold-light/20">
             {["TRENDING", "SKIN", "HAIR", "MAKEUP"].map((tab) => {
               const isActive = activeTab === tab;
               return (
@@ -196,10 +196,10 @@ export default function Shop() {
                     setActiveTab(tab);
                     setStartIndex(0);
                   }}
-                  className={`px-4 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-bold tracking-widest transition-all duration-300 ${
+                  className={`px-4 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-bold tracking-widest transition-all duration-300 uppercase ${
                     isActive
-                      ? "bg-gradient-to-r from-green-600 to-green-800 text-white shadow-md scale-105"
-                      : "text-green-800 hover:text-green-950 font-semibold"
+                      ? "bg-gradient-to-r from-primary-dark to-primary-medium text-white shadow-md scale-105 border border-gold-primary/20"
+                      : "text-primary-dark/70 hover:text-primary-dark font-semibold"
                   }`}
                 >
                   {tab}
@@ -212,12 +212,12 @@ export default function Shop() {
         {/* Product Carousel Grid */}
         <div className="relative flex items-center gap-2 md:gap-4">
           
-          {/* Left Scroll Button - Herbal Styled */}
+          {/* Left Scroll Button */}
           <button
             onClick={handlePrev}
             disabled={startIndex === 0}
-            className={`w-10 h-10 shrink-0 rounded-full border border-green-100 flex items-center justify-center bg-white shadow-sm hover:bg-green-50 transition-all ${
-              startIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-green-800"
+            className={`w-10 h-10 shrink-0 rounded-full border border-gold-light/50 flex items-center justify-center bg-white shadow-sm hover:bg-gold-light/10 transition-all ${
+              startIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-primary-dark"
             }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -227,7 +227,7 @@ export default function Shop() {
 
           {/* Products Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 flex-1">
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {displayedProducts.map((product) => (
                 <motion.div
                   key={product.id}
@@ -235,27 +235,27 @@ export default function Shop() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white border border-green-100/50 hover:border-[#E1B875]/50 rounded-2xl overflow-hidden relative flex flex-col shadow-sm hover:shadow-[0_0_25px_rgba(225,184,117,0.25)] hover:scale-[1.02] transition-all duration-300 group h-full"
+                  className="bg-white/60 border border-gold-light/30 hover:border-gold-primary/50 rounded-2xl overflow-hidden relative flex flex-col shadow-sm hover:shadow-[0_0_25px_rgba(212,175,55,0.15)] hover:scale-[1.02] transition-all duration-300 group h-full luxury-shadow"
                 >
                   {/* Image Area */}
                   <div className="h-60 w-full bg-white relative flex items-center justify-center p-6 border-b border-gray-100">
                     
-                    {/* Wishlist Heart Icon - Styled in Herbal Green */}
-                    <button className="absolute top-4 left-4 text-green-600 hover:text-green-800 hover:scale-110 transition-transform">
+                    {/* Wishlist Heart Icon */}
+                    <button className="absolute top-4 left-4 text-primary-medium hover:text-primary-dark hover:scale-110 transition-transform">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </button>
 
-                    {/* Product Badges - Styled in Herbal/Pink palettes */}
+                    {/* Product Badges */}
                     <div className="absolute top-4 right-4 flex flex-col gap-1 items-end z-10">
                       {product.isBestseller && (
-                        <span className="bg-green-100 text-green-800 text-[8px] font-bold px-2 py-0.5 rounded tracking-widest uppercase">
+                        <span className="bg-primary-light text-primary-dark text-[8px] font-bold px-2 py-0.5 rounded tracking-widest uppercase border border-primary-medium/10">
                           BESTSELLER
                         </span>
                       )}
                       {product.discount && (
-                        <span className="bg-pink-100 text-pink-700 text-[8px] font-bold px-2 py-0.5 rounded tracking-wider">
+                        <span className="bg-gold-light text-gold-dark text-[8px] font-bold px-2 py-0.5 rounded tracking-wider border border-gold-medium/10">
                           {product.discount} OFF
                         </span>
                       )}
@@ -269,27 +269,27 @@ export default function Shop() {
                       onError={(e) => { e.target.src = "/hero-image.png"; }}
                     />
 
-                    {/* Plus Button - Styled in Herbal Green */}
-                    <button className="absolute bottom-3 right-3 bg-green-700 text-white w-6 h-6 flex items-center justify-center rounded font-bold text-sm hover:bg-green-800 transition-colors">
+                    {/* Plus Button */}
+                    <button className="absolute bottom-3 right-3 bg-primary-dark text-white w-6 h-6 flex items-center justify-center rounded font-bold text-sm hover:bg-primary-medium transition-colors">
                       +
                     </button>
                   </div>
 
-                  {/* Clean Herbal Theme Card Body (Light/White) */}
-                  <div className="p-4 bg-gradient-to-t from-green-50/30 to-white flex flex-col flex-1 text-left">
-                    <h4 className="text-gray-800 text-xs md:text-sm font-medium font-[Poppins] leading-snug mb-2 line-clamp-2 h-10">
+                  {/* Body Card */}
+                  <div className="p-4 bg-gradient-to-t from-sand/50 to-white/70 flex flex-col flex-1 text-left">
+                    <h4 className="text-primary-dark text-xs md:text-sm font-medium font-[Poppins] leading-snug mb-2 line-clamp-2 h-10">
                       {product.name}
                     </h4>
 
-                    {/* Size tag - Herbal Styled */}
-                    <span className="inline-block bg-green-100/50 text-green-800 text-[9px] font-semibold px-3 py-1 rounded-full w-fit mb-4 tracking-wider font-[Poppins]">
+                    {/* Size tag */}
+                    <span className="inline-block bg-gold-light/35 text-gold-dark text-[9px] font-semibold px-3 py-1 rounded-full w-fit mb-4 tracking-wider font-[Poppins] border border-gold-medium/10">
                       {product.size}
                     </span>
 
                     {/* Price and Add to Cart */}
                     <div className="mt-auto">
                       <div className="flex items-baseline gap-2 mb-3">
-                        <span className="text-green-900 font-bold text-sm md:text-base">
+                        <span className="text-primary-dark font-bold text-sm md:text-base">
                           ₹{product.price.toLocaleString()}
                         </span>
                         {product.originalPrice && (
@@ -299,7 +299,7 @@ export default function Shop() {
                         )}
                       </div>
 
-                      <button className="w-full py-2 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-500 hover:to-green-700 text-white font-bold text-[10px] md:text-xs uppercase tracking-widest rounded active:scale-[0.98] transition-all duration-300 shadow-md">
+                      <button className="w-full py-2.5 bg-gradient-to-r from-primary-dark to-primary-medium hover:from-primary-medium hover:to-primary-dark text-white font-bold text-[10px] md:text-xs uppercase tracking-widest rounded border border-gold-medium/10 active:scale-[0.98] transition-all duration-300 shadow-md">
                         ADD TO CART
                       </button>
                     </div>
@@ -309,12 +309,12 @@ export default function Shop() {
             </AnimatePresence>
           </div>
 
-          {/* Right Scroll Button - Herbal Styled */}
+          {/* Right Scroll Button */}
           <button
             onClick={handleNext}
             disabled={startIndex + 4 >= filteredProducts.length}
-            className={`w-10 h-10 shrink-0 rounded-full border border-green-100 flex items-center justify-center bg-white shadow-sm hover:bg-green-50 transition-all ${
-              startIndex + 4 >= filteredProducts.length ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-green-800"
+            className={`w-10 h-10 shrink-0 rounded-full border border-gold-light/50 flex items-center justify-center bg-white shadow-sm hover:bg-gold-light/10 transition-all ${
+              startIndex + 4 >= filteredProducts.length ? "opacity-30 cursor-not-allowed" : "hover:scale-105 hover:shadow-md active:scale-95 text-primary-dark"
             }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -323,9 +323,9 @@ export default function Shop() {
           </button>
         </div>
 
-        {/* View All Button - Styled in Herbal Theme Outline */}
+        {/* View All Button */}
         <div className="flex justify-center mt-10">
-          <button className="bg-white border-2 border-green-600 text-green-700 font-bold text-[10px] md:text-xs tracking-widest uppercase px-8 py-3 rounded-full shadow-lg hover:bg-green-50 hover:scale-105 active:scale-98 transition-all duration-300">
+          <button className="bg-transparent border border-gold-primary text-gold-dark font-bold text-[10px] md:text-xs tracking-widest uppercase px-8 py-3 rounded-full shadow-lg hover:bg-gold-light/20 hover:scale-105 active:scale-98 transition-all duration-300">
             View All Products
           </button>
         </div>
